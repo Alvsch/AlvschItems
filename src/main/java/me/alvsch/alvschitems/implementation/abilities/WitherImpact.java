@@ -31,6 +31,8 @@ public class WitherImpact extends AAbility {
 						"&7absorption shield for &e5 ",
 						"&7seconds."
 				), 0.15D, AAbilityType.RIGHT_CLICK);
+
+		setShowCooldown(false);
 	}
 
 	@Override
