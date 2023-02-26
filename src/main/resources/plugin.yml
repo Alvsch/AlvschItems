@@ -1,0 +1,15 @@
+name: AlvschItems
+version: '${project.version}'
+main: me.alvsch.alvschitems.AlvschItems
+api-version: 1.19
+authors: [ Alvsch1 ]
+description: Custom items plugin, hypixel skyblock remake
+commands:
+  alvschitems:
+    usage: /<command>
+    aliases:
+      - items
+  upgrade:
+    usage: /<command>
+  craft:
+    usage: /<command>
