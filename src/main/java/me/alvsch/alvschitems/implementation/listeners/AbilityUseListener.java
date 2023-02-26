@@ -1,5 +1,6 @@
 package me.alvsch.alvschitems.implementation.listeners;
 
+import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.events.AbilityUseEvent;
 import me.alvsch.alvschitems.api.items.AAbility;

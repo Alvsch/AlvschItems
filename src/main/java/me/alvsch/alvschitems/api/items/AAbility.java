@@ -1,5 +1,6 @@
 package me.alvsch.alvschitems.api.items;
 
+import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.events.AbilityUseEvent;
 import me.alvsch.alvschitems.utils.Utils;
@@ -63,7 +64,7 @@ public abstract class AAbility {
 	@SuppressWarnings("ConstantConditions")
 	public static List<AAbility> getByItem(ItemStack item) {
 		List<AAbility> abilities = new ArrayList<>();
-		for(String id : item.getItemMeta().getPersistentDataContainer().get(AlvschItems.getInstance().getRegistry().getAbilityIdKey(), PersistentDataType.STRING).split("\n")) {
+		for(String id : new NBTItem(item).getStringList("id")) {
 			abilities.add(getById(id));
 		}
 		return abilities;

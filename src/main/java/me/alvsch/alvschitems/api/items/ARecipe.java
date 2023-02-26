@@ -1,16 +1,12 @@
 package me.alvsch.alvschitems.api.items;
 
+import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
-import me.alvsch.alvschitems.Logger;
-import me.alvsch.alvschitems.utils.Utils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
-import org.bukkit.persistence.PersistentDataType;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.*;
 
@@ -54,7 +50,7 @@ public class ARecipe {
 				if (item != null) {
 					String id = "null";
 					if(AItem.isAItem(item)) {
-						id = item.getItemMeta().getPersistentDataContainer().get(AlvschItems.getInstance().getRegistry().getIdKey(), PersistentDataType.STRING);
+						id = new NBTItem(item).getString("id");
 					}
 					line.append(item.getType().name()).append(":").append(id).append(":").append(item.getAmount());
 				} else line.append("AIR");
@@ -73,7 +69,7 @@ public class ARecipe {
 		this.shaped = false;
 
 		for(ItemStack item : recipe.getIngredientList()) {
-			this.items.add(item.getType().name() + ":" + item.getItemMeta().getPersistentDataContainer().get(AlvschItems.getInstance().getRegistry().getIdKey(), PersistentDataType.STRING) + ":" + item.getAmount());
+			this.items.add(item.getType().name() + ":" + new NBTItem(item).getString("id") + ":" + item.getAmount());
 		}
 
 		AlvschItems.getInstance().getRegistry().getShapelessRecipeList().add(this);
@@ -112,7 +108,7 @@ public class ARecipe {
 				// Is an AItem
 				if(!AItem.isAItem(matrixItem)) return false;
 				if(!data[1].equals(
-						matrixItem.getItemMeta().getPersistentDataContainer().get(AlvschItems.getInstance().getRegistry().getIdKey(), PersistentDataType.STRING)
+						new NBTItem(matrixItem).getString("id")
 				)) return false;
 			}
 		}

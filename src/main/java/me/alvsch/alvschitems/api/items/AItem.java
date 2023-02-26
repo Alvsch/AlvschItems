@@ -1,5 +1,6 @@
 package me.alvsch.alvschitems.api.items;
 
+import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.utils.Utils;
 import org.bukkit.Material;
@@ -7,13 +8,9 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AItem {
 
@@ -37,20 +34,22 @@ public class AItem {
 		this.item = item;
 		this.orig = item;
 
-		PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+		NBTItem nbtItem = new NBTItem(item);
+
 
 		this.material = item.getType();
 		this.amount = item.getAmount();
 
-		this.id = pdc.get(AlvschItems.getInstance().getRegistry().getIdKey(), PersistentDataType.STRING);
-		this.name = pdc.get(AlvschItems.getInstance().getRegistry().getNameKey(), PersistentDataType.STRING);
-		this.lore = List.of(pdc.get(AlvschItems.getInstance().getRegistry().getLoreKey(), PersistentDataType.STRING).split("\n"));
-		this.abilityList = new ArrayList<>(AAbility.getByItem(item));
-		this.rarity = ARarity.valueOf(pdc.get(AlvschItems.getInstance().getRegistry().getRarityKey(), PersistentDataType.STRING));
-		this.recipe = AItem.getById(id).getRecipe();
-		this.upgraded = pdc.has(AlvschItems.getInstance().getRegistry().getUpgradedKey(), PersistentDataType.SHORT);
 
-		this.stats = new AItemStats(pdc.get(AlvschItems.getInstance().getRegistry().getStatsKey(), PersistentDataType.STRING));
+		this.id = nbtItem.getString("id");
+		this.name = nbtItem.getString("name");
+		this.lore = nbtItem.getStringList("lore");
+		this.rarity = ARarity.valueOf(nbtItem.getString("rarity"));
+		this.recipe = AItem.getById(id).getRecipe();
+		this.stats = new AItemStats(nbtItem.getString("stats"));
+
+		this.abilityList = new ArrayList<>(AItem.getById(this.id).getAbilities());
+		this.upgraded = nbtItem.hasTag("upgraded");
 	}
 
 	public AItem(String id, String name, List<String> lore, ItemStack item, ARarity rarity, List<String> recipe, boolean shaped) {
@@ -117,22 +116,17 @@ public class AItem {
 			meta.addEnchant(Enchantment.DURABILITY, 1, true);
 		}
 
-		PersistentDataContainer pdc = meta.getPersistentDataContainer();
-		pdc.set(AlvschItems.getInstance().getRegistry().getIdKey(), PersistentDataType.STRING, id);
-		pdc.set(AlvschItems.getInstance().getRegistry().getNameKey(), PersistentDataType.STRING, name);
-		pdc.set(AlvschItems.getInstance().getRegistry().getLoreKey(), PersistentDataType.STRING, String.join("\n", this.lore));
-		pdc.set(AlvschItems.getInstance().getRegistry().getRarityKey(), PersistentDataType.STRING, rarity.toString());
-
-		if(upgraded) pdc.set(AlvschItems.getInstance().getRegistry().getUpgradedKey(), PersistentDataType.SHORT, (short) 1);
-		StringBuilder sb = new StringBuilder();
-		for(AAbility a : abilityList) {
-			sb.append(a.getId());
-			sb.append("\n");
-		}
-		pdc.set(AlvschItems.getInstance().getRegistry().getAbilityIdKey(), PersistentDataType.STRING, sb.toString());
-		pdc.set(AlvschItems.getInstance().getRegistry().getStatsKey(), PersistentDataType.STRING, stats.toString());
-
 		item.setItemMeta(meta);
+
+		NBTItem nbtItem = new NBTItem(item);
+		nbtItem.setString("id", this.id);
+		nbtItem.setString("name", this.name);
+		nbtItem.setString("lore", this.lore.toString());
+		nbtItem.setString("rarity", this.rarity.toString());
+		nbtItem.setString("stats", this.stats.toString());
+		if(upgraded) nbtItem.setBoolean("upgraded", true);
+
+		item = nbtItem.getItem();
 		return item;
 	}
 
@@ -167,7 +161,7 @@ public class AItem {
 	@SuppressWarnings("ConstantConditions")
 	public static AItem getByItem(ItemStack item) {
 		try {
-			return getById(item.getItemMeta().getPersistentDataContainer().get(AlvschItems.getInstance().getRegistry().getIdKey(), PersistentDataType.STRING));
+			return getById(new NBTItem(item).getString("id"));
 		} catch (NullPointerException e) { return null; }
 	}
 
@@ -195,7 +189,7 @@ public class AItem {
 	}
 
 	public static boolean isAItem(ItemStack item) {
-		return item.getItemMeta().getPersistentDataContainer().has(AlvschItems.getInstance().getRegistry().getIdKey(), PersistentDataType.STRING);
+		return new NBTItem(item).hasTag("id");
 	}
 
 }

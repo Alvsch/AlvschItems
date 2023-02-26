@@ -1,7 +1,8 @@
 package me.alvsch.alvschitems.implementation.listeners;
 
+import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
-import me.alvsch.alvschitems.Logger;
 import me.alvsch.alvschitems.api.items.AItem;
 import me.alvsch.alvschitems.api.items.ARecipe;
 import me.alvsch.alvschitems.core.guis.CraftMenu;
@@ -10,15 +11,15 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
-import org.bukkit.persistence.PersistentDataType;
-import org.checkerframework.checker.units.qual.A;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class CraftListener implements Listener {
 
@@ -95,7 +96,7 @@ public class CraftListener implements Listener {
 			if(item == null) continue;
 			String id = "null";
 			if(AItem.isAItem(item)){
-				id = item.getItemMeta().getPersistentDataContainer().get(AlvschItems.getInstance().getRegistry().getIdKey(), PersistentDataType.STRING);
+				id = new NBTItem(item).getString("id");
 			}
 			shapeless.add(item.getType().name() + ":" + id + ":" +  item.getAmount());
 		}
