@@ -6,7 +6,7 @@ authors: [ Alvsch1 ]
 description: Custom items plugin, hypixel skyblock remake
 commands:
   alvschitems:
-    usage: /<command>
+    usage: /<command> <give|list> <player> <item> [amount]
     aliases:
       - items
   upgrade:

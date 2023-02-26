@@ -3,7 +3,6 @@ package me.alvsch.alvschitems;
 import me.alvsch.alvschitems.core.AlvschRegistry;
 import me.alvsch.alvschitems.core.CooldownManager;
 import me.alvsch.alvschitems.core.commands.Craft;
-import me.alvsch.alvschitems.core.commands.Items;
 import me.alvsch.alvschitems.core.commands.MainCommand;
 import me.alvsch.alvschitems.core.commands.Upgrade;
 import me.alvsch.alvschitems.implementation.listeners.AbilityUseListener;
@@ -51,6 +50,7 @@ public final class AlvschItems extends JavaPlugin {
 		// Plugin shutdown logic
 	}
 
+	@SuppressWarnings("ConstantConditions")
 	private void registerCommands() {
 		getCommand("alvschitems").setExecutor(new MainCommand());
 		getCommand("alvschitems").setTabCompleter(new MainCommand());
