@@ -32,6 +32,8 @@ public class WitherImpact extends AAbility {
 						"&7seconds."
 				), 0.15D, AAbilityType.RIGHT_CLICK);
 
+		setPrefix1("&aScroll Abilities:");
+		setPrefix2("Item ");
 		setShowCooldown(false);
 	}
 
