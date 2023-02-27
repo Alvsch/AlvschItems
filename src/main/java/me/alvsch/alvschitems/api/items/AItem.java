@@ -90,12 +90,10 @@ public class AItem {
 		}
 		List<String> lore = new ArrayList<>();
 
-		//noinspection CollectionAddAllCanBeReplacedWithConstructor
-		lore.addAll(stats.toLore());
-		lore.add("");
+		if(lore.addAll(stats.toLore())) lore.add("");
 
 		if(!Utils.isAllBlank(this.lore)) {
-			lore.addAll(this.lore);
+			lore.addAll(Utils.color(this.lore));
 			lore.add("");
 		}
 
