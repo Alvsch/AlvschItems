@@ -8,21 +8,11 @@ public class Logger {
 		if(message == null) return;
 
 		switch (level) {
-			case ERROR:
-				Bukkit.getConsoleSender().sendMessage(Utils.color("&8[&c&lERROR&8] &f" + message));
-				break;
-			case WARNING:
-				Bukkit.getConsoleSender().sendMessage(Utils.color("&8[&7WARNING&8] &f" + message));
-				break;
-			case INFO:
-				Bukkit.getConsoleSender().sendMessage(Utils.color("&8[&fINFO&8] &f" + message));
-				break;
-			case SUCCESS:
-				Bukkit.getConsoleSender().sendMessage(Utils.color("&8[&aSUCCESS&8] &f" + message));
-				break;
-			case OUTLINE:
-				Bukkit.getConsoleSender().sendMessage(Utils.color("&7" + message));
-				break;
+			case ERROR -> Bukkit.getConsoleSender().sendMessage(Utils.color("&8[&c&lERROR&8] &f" + message));
+			case WARNING -> Bukkit.getConsoleSender().sendMessage(Utils.color("&8[&7WARNING&8] &f" + message));
+			case INFO -> Bukkit.getConsoleSender().sendMessage(Utils.color("&8[&fINFO&8] &f" + message));
+			case SUCCESS -> Bukkit.getConsoleSender().sendMessage(Utils.color("&8[&aSUCCESS&8] &f" + message));
+			case OUTLINE -> Bukkit.getConsoleSender().sendMessage(Utils.color("&7" + message));
 		}
 
 

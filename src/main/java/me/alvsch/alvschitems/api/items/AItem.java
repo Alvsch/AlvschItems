@@ -90,6 +90,7 @@ public class AItem {
 		}
 		List<String> lore = new ArrayList<>();
 
+		//noinspection CollectionAddAllCanBeReplacedWithConstructor
 		lore.addAll(stats.toLore());
 		lore.add("");
 
