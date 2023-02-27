@@ -1,6 +1,5 @@
 package me.alvsch.alvschitems.implementation.abilities;
 
-import me.alvsch.alvschitems.Logger;
 import me.alvsch.alvschitems.api.events.AbilityUseEvent;
 import me.alvsch.alvschitems.api.items.AAbility;
 import me.alvsch.alvschitems.api.items.AAbilityType;

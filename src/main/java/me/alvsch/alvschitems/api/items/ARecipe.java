@@ -1,6 +1,5 @@
 package me.alvsch.alvschitems.api.items;
 
-import de.tr7zw.nbtapi.NBT;
 import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
 import org.bukkit.Material;

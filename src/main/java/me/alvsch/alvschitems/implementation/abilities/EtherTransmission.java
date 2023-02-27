@@ -3,7 +3,6 @@ package me.alvsch.alvschitems.implementation.abilities;
 import me.alvsch.alvschitems.api.events.AbilityUseEvent;
 import me.alvsch.alvschitems.api.items.AAbility;
 import me.alvsch.alvschitems.api.items.AAbilityType;
-import me.alvsch.alvschitems.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;

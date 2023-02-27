@@ -3,20 +3,15 @@ package me.alvsch.alvschitems.implementation.abilities;
 import me.alvsch.alvschitems.api.events.AbilityUseEvent;
 import me.alvsch.alvschitems.api.items.AAbility;
 import me.alvsch.alvschitems.api.items.AAbilityType;
-import org.bukkit.*;
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.util.RayTraceResult;
-import org.bukkit.util.Vector;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class WitherImpact extends AAbility {
 

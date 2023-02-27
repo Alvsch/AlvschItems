@@ -1,24 +1,15 @@
 package me.alvsch.alvschitems.implementation.setup;
 
-import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.items.AItem;
 import me.alvsch.alvschitems.api.items.AItemStats;
 import me.alvsch.alvschitems.api.items.ARarity;
-import me.alvsch.alvschitems.api.items.ARecipe;
 import me.alvsch.alvschitems.implementation.abilities.EtherTransmission;
 import me.alvsch.alvschitems.implementation.abilities.InstantTransmission;
 import me.alvsch.alvschitems.implementation.abilities.SpeedBoost;
 import me.alvsch.alvschitems.implementation.abilities.WitherImpact;
-import me.alvsch.alvschitems.utils.ItemBuilder;
 import me.alvsch.alvschitems.utils.RecipeUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
-import org.bukkit.inventory.ShapedRecipe;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 

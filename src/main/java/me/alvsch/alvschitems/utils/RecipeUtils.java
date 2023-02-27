@@ -1,15 +1,12 @@
 package me.alvsch.alvschitems.utils;
 
-import me.alvsch.alvschitems.Logger;
 import me.alvsch.alvschitems.api.items.AItem;
 import me.alvsch.alvschitems.api.items.ARecipe;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class RecipeUtils {

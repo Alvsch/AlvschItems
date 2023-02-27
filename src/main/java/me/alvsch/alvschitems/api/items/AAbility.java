@@ -4,12 +4,9 @@ import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.events.AbilityUseEvent;
 import me.alvsch.alvschitems.utils.Utils;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class AAbility {

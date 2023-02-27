@@ -1,7 +1,5 @@
 package me.alvsch.alvschitems.utils;
 
-import me.alvsch.alvschitems.AlvschItems;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

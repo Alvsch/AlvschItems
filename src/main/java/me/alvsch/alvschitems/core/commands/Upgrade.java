@@ -1,6 +1,5 @@
 package me.alvsch.alvschitems.core.commands;
 
-import me.alvsch.alvschitems.Logger;
 import me.alvsch.alvschitems.api.items.AItem;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
