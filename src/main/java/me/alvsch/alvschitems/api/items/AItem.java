@@ -71,6 +71,7 @@ public class AItem {
 			this.recipe = new ARecipe(this.createItem(), recipe, shaped);
 		}
 	}
+
 	public AItem(String id, String name, ItemStack item, ARarity rarity, List<String> recipe, boolean shaped) {
 		this(id, name, new ArrayList<>(), item, rarity, recipe, shaped);
 	}
