@@ -7,10 +7,10 @@ public class AItemStack extends ItemStack {
 
 	private String id;
 
-	public AItemStack(Material material) {
+	public AItemStack(String id, Material material) {
 		super(material);
 	}
-	public AItemStack(Material material, int amount) {
+	public AItemStack(String id, Material material, int amount) {
 		super(material, amount);
 	}
 
