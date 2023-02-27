@@ -99,12 +99,11 @@ public class AItemSetup {
 		)
 				.addAbility(new WitherImpact())
 				.setStats(new AItemStats()
-						.setDamage(325)
-						.setStrength(235)
-						.setCritDamage(70)
+						.setDamage(310)
+						.setStrength(150)
 
-						.setIntelligence(420)
-						.setFerocity(35)
+						.setIntelligence(450)
+						.setFerocity(30)
 
 				).register();
 		AItem aote = new AItem("ASPECT_OF_THE_END", "Aspect of the End", new ItemStack(Material.DIAMOND_SWORD), ARarity.RARE,
