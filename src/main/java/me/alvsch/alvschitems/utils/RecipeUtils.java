@@ -1,6 +1,7 @@
 package me.alvsch.alvschitems.utils;
 
 import me.alvsch.alvschitems.api.items.AItem;
+import me.alvsch.alvschitems.api.items.AItemStack;
 import me.alvsch.alvschitems.api.items.ARecipe;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -31,11 +32,13 @@ public class RecipeUtils {
 		ItemStack item = aItem.createItem();
 		return item.getType().name() + ":" + aItem.getId() + ":" + amount;
 	}
+	public static String createIngredient(AItemStack itemStack, int amount) {
+		return itemStack.getType() + ":" + itemStack.getId() + ":" + amount;
+	}
 
 	public static String createIngredient(Material material, int amount) {
 		return material.name() + ":" + "null" + ":" + amount;
 	}
-
 	public static void consumeItems(Inventory inv, ARecipe recipe) {
 		for(int i = 0; i < recipe.getItems().size(); i++) {
 			String[] data = recipe.getItems().get(i).split(":");

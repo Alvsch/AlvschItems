@@ -52,7 +52,7 @@ public class AItem {
 		this.upgraded = nbtItem.hasTag("upgraded");
 	}
 
-	public AItem(String id, String name, List<String> lore, ItemStack item, ARarity rarity, List<String> recipe, boolean shaped) {
+	public AItem(String id, String name, List<String> lore, AItemStack item, ARarity rarity, List<String> recipe, boolean shaped) {
 		this.id = id;
 		this.name = name;
 		this.lore = lore;
@@ -72,7 +72,7 @@ public class AItem {
 		}
 	}
 
-	public AItem(String id, String name, ItemStack item, ARarity rarity, List<String> recipe, boolean shaped) {
+	public AItem(String id, String name, AItemStack item, ARarity rarity, List<String> recipe, boolean shaped) {
 		this(id, name, new ArrayList<>(), item, rarity, recipe, shaped);
 	}
 
