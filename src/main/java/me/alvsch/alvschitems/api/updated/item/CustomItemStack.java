@@ -1,0 +1,26 @@
+package me.alvsch.alvschitems.api.updated.item;
+
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
+public class CustomItemStack extends ItemStack {
+
+	private final String id;
+
+	public CustomItemStack(String id, Material material) {
+		this(id, material, 1);
+	}
+	public CustomItemStack(String id, Material material, int amount) {
+		super(material, amount);
+		this.id = id;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	@Override
+	public String toString() {
+		return getType() + ":" + id + ":" + getAmount();
+	}
+}

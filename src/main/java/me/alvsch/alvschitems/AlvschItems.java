@@ -5,6 +5,7 @@ import me.alvsch.alvschitems.core.CooldownManager;
 import me.alvsch.alvschitems.core.commands.Craft;
 import me.alvsch.alvschitems.core.commands.MainCommand;
 import me.alvsch.alvschitems.core.commands.Upgrade;
+import me.alvsch.alvschitems.core.scoreboard.CustomScoreboard;
 import me.alvsch.alvschitems.implementation.listeners.AbilityUseListener;
 import me.alvsch.alvschitems.implementation.listeners.CraftListener;
 import me.alvsch.alvschitems.implementation.setup.AItemSetup;
@@ -42,7 +43,7 @@ public final class AlvschItems extends JavaPlugin {
 		Logger.log(Logger.LogLevel.SUCCESS, "Plugin is loaded!");
 		Logger.log(Logger.LogLevel.OUTLINE, "********************");
 
-
+		new CustomScoreboard();
 	}
 
 	@Override
