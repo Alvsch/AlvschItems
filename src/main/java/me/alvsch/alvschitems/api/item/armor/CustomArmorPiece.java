@@ -2,16 +2,15 @@ package me.alvsch.alvschitems.api.item.armor;
 
 import me.alvsch.alvschitems.api.CustomRecipe;
 import me.alvsch.alvschitems.api.Rarity;
-import me.alvsch.alvschitems.api.event.ArmorEquipEvent;
-import me.alvsch.alvschitems.api.event.ArmorUnequipEvent;
 import me.alvsch.alvschitems.api.item.BaseItem;
 import me.alvsch.alvschitems.api.item.ItemStats;
+import me.alvsch.alvschitems.core.attributes.Equippable;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CustomArmorPiece extends BaseItem {
+public abstract class CustomArmorPiece extends BaseItem implements Equippable {
 
     private final ItemStats itemStats;
 
@@ -26,8 +25,5 @@ public abstract class CustomArmorPiece extends BaseItem {
         super(id, name, lore, item, rarity, recipe);
         this.itemStats = itemStats;
     }
-
-    public abstract void onEquip(ArmorEquipEvent event);
-    public abstract void onUnequip(ArmorUnequipEvent event);
 
 }

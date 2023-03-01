@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CustomWeapon extends BaseItem implements AbilityHolder {
+public class CustomWeapon extends BaseItem implements AbilityHolder {
 
     private final ItemStats itemStats;
 
