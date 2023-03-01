@@ -29,14 +29,12 @@ public class CustomWeapon extends BaseItem implements AbilityHolder {
         super(id, name, lore, item, rarity, recipe);
     }
 
-    public CustomWeapon addAbility(Ability ability) {
+    public void addAbility(Ability ability) {
         this.abilityList.add(ability);
-        return this;
     }
 
-    public CustomWeapon setItemStats(ItemStats itemStats) {
+    public void setItemStats(ItemStats itemStats) {
         this.itemStats = itemStats;
-        return this;
     }
 
     public ItemStats getItemStats() {
