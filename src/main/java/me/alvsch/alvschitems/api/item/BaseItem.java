@@ -48,9 +48,16 @@ public class BaseItem {
 
 	}
 
+	/**
+	 *
+	 * @param id The unique {@link BaseItem} identifier
+	 * @param name The {@link BaseItem} display name
+	 * @param item The {@link ItemStack} used to create the {@link BaseItem}
+	 * @param rarity The {@link BaseItem} rarity
+	 * @param recipe The recipe for the {@link BaseItem}
+	 */
 	public BaseItem(String id, String name, ItemStack item, Rarity rarity, CustomRecipe recipe) {
 		this(id, name, new ArrayList<>(), item, rarity, recipe);
-
 	}
 
 	public BaseItem(String id, String name, List<String> lore, ItemStack item, Rarity rarity, CustomRecipe recipe) {
@@ -102,47 +109,47 @@ public class BaseItem {
 
 	//region Getters Setters
 
-	public String getId() {
+	public final String getId() {
 		return id;
 	}
 
-	public String getName() {
+	public final String getName() {
 		return name;
 	}
 
-	public List<String> getLore() {
+	public final List<String> getLore() {
 		return lore;
 	}
 
-	public Rarity getRarity() {
+	public final Rarity getRarity() {
 		return rarity;
 	}
 
-	public CustomRecipe getRecipe() {
+	public final CustomRecipe getRecipe() {
 		return recipe;
 	}
 
-	public void setRecipe(CustomRecipe recipe) {
+	public final void setRecipe(CustomRecipe recipe) {
 		this.recipe = recipe;
 	}
 
-	public ItemStack getOriginal() {
+	public final ItemStack getOriginal() {
 		return orig;
 	}
 
-	public ItemStack getItem() {
+	public final ItemStack getItem() {
 		return item;
 	}
 
-	public void setItem(ItemStack item) {
+	public final void setItem(ItemStack item) {
 		this.item = item;
 	}
 
-	public boolean hasGlint() {
+	public final boolean hasGlint() {
 		return glint;
 	}
 
-	public void setGlint(boolean glint) {
+	public final void setGlint(boolean glint) {
 		this.glint = glint;
 	}
 

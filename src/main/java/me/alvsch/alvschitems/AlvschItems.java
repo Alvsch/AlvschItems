@@ -4,7 +4,6 @@ import me.alvsch.alvschitems.core.AlvschRegistry;
 import me.alvsch.alvschitems.core.CooldownManager;
 import me.alvsch.alvschitems.core.commands.Craft;
 import me.alvsch.alvschitems.core.commands.MainCommand;
-import me.alvsch.alvschitems.core.commands.Upgrade;
 import me.alvsch.alvschitems.core.scoreboard.CustomScoreboard;
 import me.alvsch.alvschitems.implementation.listeners.AbilityUseListener;
 import me.alvsch.alvschitems.implementation.listeners.CraftListener;
@@ -56,7 +55,6 @@ public final class AlvschItems extends JavaPlugin {
 		getCommand("alvschitems").setExecutor(new MainCommand());
 		getCommand("alvschitems").setTabCompleter(new MainCommand());
 
-		getCommand("upgrade").setExecutor(new Upgrade());
 		getCommand("craft").setExecutor(new Craft());
 	}
 	private void registerListeners() {

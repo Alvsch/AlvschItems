@@ -32,7 +32,7 @@ public abstract class Ability {
         AlvschItems.getInstance().getRegistry().getAbilityIds().put(id, this);
     }
 
-    public List<String> toLore() {
+    public final List<String> toLore() {
         List<String> lore = new ArrayList<>();
 
         if(!prefix1.isBlank()) {
@@ -51,39 +51,39 @@ public abstract class Ability {
 
     //region Getters Setters
 
-    public String getId() {
+    public final String getId() {
         return id;
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public List<String> getDescription() {
+    public final List<String> getDescription() {
         return description;
     }
 
-    public double getCooldown() {
+    public final double getCooldown() {
         return cooldown;
     }
 
-    public AbilityType getType() {
+    public final AbilityType getType() {
         return abilityType;
     }
 
-    public void setPrefix1(String prefix1) {
+    public final void setPrefix1(String prefix1) {
         this.prefix1 = prefix1;
     }
 
-    public void setPrefix2(String prefix2) {
+    public final void setPrefix2(String prefix2) {
         this.prefix2 = prefix2;
     }
 
-    public boolean showCooldown() {
+    public final boolean displayCooldown() {
         return showCooldown;
     }
 
-    public void showCooldown(boolean showCooldown) {
+    public final void setShowCooldown(boolean showCooldown) {
         this.showCooldown = showCooldown;
     }
 

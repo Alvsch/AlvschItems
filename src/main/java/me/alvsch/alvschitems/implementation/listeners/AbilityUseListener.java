@@ -2,13 +2,11 @@ package me.alvsch.alvschitems.implementation.listeners;
 
 import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
-import me.alvsch.alvschitems.api.event.AbilityUseEvent;
 import me.alvsch.alvschitems.api.ability.Ability;
+import me.alvsch.alvschitems.api.event.AbilityUseEvent;
 import me.alvsch.alvschitems.api.item.BaseItem;
-import me.alvsch.alvschitems.api.item.weapon.CustomWeapon;
 import me.alvsch.alvschitems.core.CooldownManager;
 import me.alvsch.alvschitems.core.attributes.AbilityHolder;
-import me.alvsch.alvschitems.utils.ItemBuilder;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -23,8 +21,8 @@ public class AbilityUseListener implements Listener {
 
 		if(event.getItem() == null || !BaseItem.isCustomItem(event.getItem())) return;
 		BaseItem item = BaseItem.getById(new NBTItem(event.getItem()).getString("id"));
-		if (!(item instanceof AbilityHolder abilityHolder)) return;
-		List<Ability> abilities = abilityHolder.getAbilities();
+		if (!(item instanceof AbilityHolder abilityContainer)) return;
+		List<Ability> abilities = abilityContainer.getAbilities();
 
 		Ability ability = null;
 		for(Ability a : abilities) {

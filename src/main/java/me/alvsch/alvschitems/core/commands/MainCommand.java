@@ -1,7 +1,7 @@
 package me.alvsch.alvschitems.core.commands;
 
 import me.alvsch.alvschitems.AlvschItems;
-import me.alvsch.alvschitems.api.items.AItem;
+import me.alvsch.alvschitems.api.item.BaseItem;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,7 +38,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
 			}
 
 			Inventory inv = Bukkit.createInventory(null, 6 * 9, "Items");
-			for (AItem item : AlvschItems.getInstance().getRegistry().getItemIds().values()) {
+			for (BaseItem item : AlvschItems.getInstance().getRegistry().getItemIds().values()) {
 				inv.addItem(item.createItem());
 			}
 
@@ -51,7 +51,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
 			}
 
 			Player player = Bukkit.getPlayerExact(args[1]);
-			AItem aItem = AItem.getById(args[2]);
+			BaseItem aItem = BaseItem.getById(args[2]);
 			if(aItem == null || player == null) {
 				return false;
 			}

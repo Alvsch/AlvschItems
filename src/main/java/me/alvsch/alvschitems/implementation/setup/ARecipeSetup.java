@@ -1,6 +1,6 @@
 package me.alvsch.alvschitems.implementation.setup;
 
-import me.alvsch.alvschitems.api.items.ARecipe;
+import me.alvsch.alvschitems.api.CustomRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -20,9 +20,9 @@ public class ARecipeSetup {
 			for (Iterator<Recipe> it = Bukkit.recipeIterator(); it.hasNext(); ) {
 				Recipe recipe = it.next();
 				if (recipe instanceof ShapedRecipe) {
-					new ARecipe((ShapedRecipe) recipe);
+					new CustomRecipe((ShapedRecipe) recipe);
 				} else if (recipe instanceof ShapelessRecipe) {
-					new ARecipe((ShapelessRecipe) recipe);
+					new CustomRecipe((ShapelessRecipe) recipe);
 				}
 
 			}
