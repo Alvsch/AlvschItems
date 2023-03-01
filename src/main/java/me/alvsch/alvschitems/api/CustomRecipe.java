@@ -159,4 +159,14 @@ public class CustomRecipe {
 		}
 	}
 
+	/**
+	 *
+	 * @param material The material
+	 * @param amount The amount
+	 * @return Format material and amount to a recipe string format
+	 */
+	public static String format(Material material, int amount) {
+		return material + ":null:" + amount;
+	}
+
 }
