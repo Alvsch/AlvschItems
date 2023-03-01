@@ -29,6 +29,25 @@ public class CustomWeapon extends BaseItem implements AbilityHolder {
         super(id, name, lore, item, rarity, recipe);
     }
 
+    private void setExtraLore() {
+        List<String> lore = new ArrayList<>();
+        if(itemStats != null) lore.addAll(itemStats.toLore());
+        lore.add("");
+
+        for(Ability ability : abilityList) {
+            lore.addAll(ability.toLore());
+            lore.add("");
+        }
+
+        super.extraLore = lore;
+    }
+
+    @Override
+    public void register() {
+        setExtraLore();
+        super.register();
+    }
+
     public void addAbility(Ability ability) {
         this.abilityList.add(ability);
     }

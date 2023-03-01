@@ -22,6 +22,11 @@ public class BaseItem {
 
 	private CustomRecipe recipe;
 
+	/**
+	 * Extra lore for built-in usage
+	 */
+	protected List<String> extraLore = new ArrayList<>();
+
 	private final ItemStack orig;
 	private ItemStack item;
 
@@ -87,8 +92,7 @@ public class BaseItem {
 		meta.setDisplayName(rarity.getColor() + this.name);
 
 		List<String> lore = new ArrayList<>(this.lore);
-		lore.add("");
-		lore.add("");
+		lore.addAll(this.extraLore);
 
 		lore.add(rarity.getColor().toString() + ChatColor.BOLD + rarity.name());
 

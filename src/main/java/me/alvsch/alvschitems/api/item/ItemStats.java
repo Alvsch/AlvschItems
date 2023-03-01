@@ -1,6 +1,10 @@
 package me.alvsch.alvschitems.api.item;
 
+import me.alvsch.alvschitems.utils.Utils;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +44,32 @@ public class ItemStats {
         armor = map.getOrDefault("armor", 0);
         health = map.getOrDefault("health", 0);
 
+    }
+
+    public List<String> toLore() {
+        List<String> lore = new ArrayList<>();
+
+        if(damage != 0) {
+            String i = damage > 0 ? "+" : "-";
+            lore.add("&r&7Damage: &c" + i + damage);
+        }
+        if(strength != 0) {
+            String i = strength > 0 ? "+" : "-";
+            lore.add("&r&7Strength: &c" + i + strength);
+        }
+
+        if(armor != 0 || health != 0) lore.add("");
+
+        if(armor != 0) {
+            String i = armor > 0 ? "+" : "-";
+            lore.add("&r&7Armor: &a" + i + armor);
+        }
+        if(health != 0) {
+            String i = health > 0 ? "+" : "-";
+            lore.add("&r&7Health: &a" + i + health);
+        }
+
+        return Utils.color(lore);
     }
 
     //region Getters Setters
