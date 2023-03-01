@@ -1,4 +1,4 @@
-package me.alvsch.alvschitems.api.updated;
+package me.alvsch.alvschitems.api;
 
 import org.bukkit.ChatColor;
 

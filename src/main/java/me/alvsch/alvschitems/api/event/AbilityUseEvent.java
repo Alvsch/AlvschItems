@@ -1,7 +1,7 @@
-package me.alvsch.alvschitems.api.events;
+package me.alvsch.alvschitems.api.event;
 
-import me.alvsch.alvschitems.api.items.AAbility;
-import me.alvsch.alvschitems.api.items.AItem;
+import me.alvsch.alvschitems.api.ability.Ability;
+import me.alvsch.alvschitems.api.item.BaseItem;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -11,10 +11,10 @@ public class AbilityUseEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private final Player player;
-    private final AAbility ability;
-    private final AItem item;
+    private final Ability ability;
+    private final BaseItem item;
 
-    public AbilityUseEvent(Player player, AAbility ability, AItem item) {
+    public AbilityUseEvent(Player player, Ability ability, BaseItem item) {
         this.player = player;
         this.ability = ability;
 
@@ -25,11 +25,11 @@ public class AbilityUseEvent extends Event {
         return player;
     }
 
-    public AAbility getAbility() {
+    public Ability getAbility() {
         return ability;
     }
 
-    public AItem getItem() {
+    public BaseItem getItem() {
         return item;
     }
 

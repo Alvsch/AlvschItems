@@ -2,10 +2,9 @@ package me.alvsch.alvschitems.implementation.listeners;
 
 import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
-import me.alvsch.alvschitems.api.items.AItem;
-import me.alvsch.alvschitems.api.items.ARecipe;
+import me.alvsch.alvschitems.api.CustomRecipe;
+import me.alvsch.alvschitems.api.item.BaseItem;
 import me.alvsch.alvschitems.core.guis.CraftMenu;
-import me.alvsch.alvschitems.utils.RecipeUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,9 +45,9 @@ public class CraftListener implements Listener {
 			for(int i : slots) {
 				matrix.add(inv.getItem(i));
 			}
-			ARecipe recipe = getRecipe(matrix);
+			CustomRecipe recipe = getRecipe(matrix);
 			if(recipe != null) {
-				RecipeUtils.consumeItems(inv, recipe);
+				CustomRecipe.consumeItems(inv, recipe);
 				player.getInventory().addItem(recipe.getResult());
 			}
 		}
@@ -84,8 +83,8 @@ public class CraftListener implements Listener {
 	}
 
 
-	private ARecipe getRecipe(List<ItemStack> matrix) {
-		for(ARecipe recipe : AlvschItems.getInstance().getRegistry().getShapedRecipeList()) {
+	private CustomRecipe getRecipe(List<ItemStack> matrix) {
+		for(CustomRecipe recipe : AlvschItems.getInstance().getRegistry().getShapedRecipeList()) {
 			if(recipe.canCraft(matrix)) {
 				return recipe;
 			}
@@ -94,12 +93,12 @@ public class CraftListener implements Listener {
 		for(ItemStack item : matrix) {
 			if(item == null) continue;
 			String id = "null";
-			if(AItem.isAItem(item)){
+			if(BaseItem.isCustomItem(item)){
 				id = new NBTItem(item).getString("id");
 			}
 			shapeless.add(item.getType().name() + ":" + id + ":" +  item.getAmount());
 		}
-		for(ARecipe recipe : AlvschItems.getInstance().getRegistry().getShapelessRecipeList()) {
+		for(CustomRecipe recipe : AlvschItems.getInstance().getRegistry().getShapelessRecipeList()) {
 			if(recipe.getItems().size() != shapeless.size()) continue;
 			if(isRecipeValid(recipe, shapeless)) return recipe;
 		}
@@ -107,7 +106,7 @@ public class CraftListener implements Listener {
 		return null;
 	}
 
-	private boolean isRecipeValid(ARecipe recipe, List<String> matrix) {
+	private boolean isRecipeValid(CustomRecipe recipe, List<String> matrix) {
 		for(int i = 0; i < recipe.getItems().size(); i++) {
 			String[] recipeData = recipe.getItems().get(i).split(":");
 			String[] matrixData = matrix.get(i).split(":");

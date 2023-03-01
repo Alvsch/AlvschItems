@@ -1,10 +1,14 @@
 package me.alvsch.alvschitems.implementation.listeners;
 
+import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
-import me.alvsch.alvschitems.api.events.AbilityUseEvent;
-import me.alvsch.alvschitems.api.items.AAbility;
-import me.alvsch.alvschitems.api.items.AItem;
+import me.alvsch.alvschitems.api.event.AbilityUseEvent;
+import me.alvsch.alvschitems.api.ability.Ability;
+import me.alvsch.alvschitems.api.item.BaseItem;
+import me.alvsch.alvschitems.api.item.weapon.CustomWeapon;
 import me.alvsch.alvschitems.core.CooldownManager;
+import me.alvsch.alvschitems.core.attributes.AbilityHolder;
+import me.alvsch.alvschitems.utils.ItemBuilder;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -17,12 +21,13 @@ public class AbilityUseListener implements Listener {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 
-		if(event.getItem() == null || !AItem.isAItem(event.getItem())) return;
-		AItem item = new AItem(event.getItem());
-		List<AAbility> abilities = item.getAbilities();
+		if(event.getItem() == null || !BaseItem.isCustomItem(event.getItem())) return;
+		BaseItem item = BaseItem.getById(new NBTItem(event.getItem()).getString("id"));
+		if (!(item instanceof AbilityHolder abilityHolder)) return;
+		List<Ability> abilities = abilityHolder.getAbilities();
 
-		AAbility aAbility = null;
-		for(AAbility a : abilities) {
+		Ability ability = null;
+		for(Ability a : abilities) {
 			if(a == null) continue;
 			String action = a.getType().name();
 			if(event.getPlayer().isSneaking()) {
@@ -32,14 +37,14 @@ public class AbilityUseListener implements Listener {
 			}
 
 			if(event.getAction().toString().startsWith(action.replace("SNEAK_", ""))) {
-				aAbility = a;
+				ability = a;
 				break;
 			}
 		}
-		if(aAbility == null) return;
+		if(ability == null) return;
 
 		event.setCancelled(true);
-		AbilityUseEvent customEvent = new AbilityUseEvent(event.getPlayer(), aAbility, item);
+		AbilityUseEvent customEvent = new AbilityUseEvent(event.getPlayer(), ability, item);
 		AlvschItems.getInstance().getServer().getPluginManager().callEvent(customEvent);
 	}
 

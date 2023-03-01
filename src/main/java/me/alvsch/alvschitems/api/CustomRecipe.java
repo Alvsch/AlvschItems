@@ -1,9 +1,10 @@
-package me.alvsch.alvschitems.api.updated;
+package me.alvsch.alvschitems.api;
 
 import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
-import me.alvsch.alvschitems.api.items.AItem;
+import me.alvsch.alvschitems.api.item.BaseItem;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
@@ -49,7 +50,7 @@ public class CustomRecipe {
 
 				if (item != null) {
 					String id = "null";
-					if(AItem.isAItem(item)) {
+					if(BaseItem.isCustomItem(item)) {
 						id = new NBTItem(item).getString("id");
 					}
 					line.append(item.getType().name()).append(":").append(id).append(":").append(item.getAmount());
@@ -106,7 +107,7 @@ public class CustomRecipe {
 				if(!Objects.equals(Material.getMaterial(data[0]), matrixItem.getType())) return false;
 			} else {
 				// Is an AItem
-				if(!AItem.isAItem(matrixItem)) return false;
+				if(!BaseItem.isCustomItem(matrixItem)) return false;
 				if(!data[1].equals(
 						new NBTItem(matrixItem).getString("id")
 				)) return false;
@@ -115,6 +116,7 @@ public class CustomRecipe {
 		return true;
 	}
 
+	//region Getters
 	public ItemStack getResult() {
 		return result;
 	}
@@ -122,9 +124,34 @@ public class CustomRecipe {
 	public List<String> getItems() {
 		return items;
 	}
-
 	public boolean isShaped() {
 		return shaped;
+	}
+	//endregion
+
+	private static final Map<Integer, Integer> slots = new HashMap<>(Map.of(
+			0, 10,
+			1, 11,
+			2, 12,
+			3, 19,
+			4, 20,
+			5, 21,
+			6, 28,
+			7, 29,
+			8, 30)
+	); // Result slot: 24
+
+	public static void consumeItems(Inventory inv, CustomRecipe recipe) {
+		for(int i = 0; i < recipe.getItems().size(); i++) {
+			String[] data = recipe.getItems().get(i).split(":");
+			if(data[0].equals("AIR")) continue;
+			ItemStack item = inv.getItem(slots.get(i));
+			if(item == null) continue;
+			int amount = item.getAmount() - Integer.parseInt(data[2]);
+			amount = Math.max(0, amount);
+			item.setAmount(amount);
+
+		}
 	}
 
 }
