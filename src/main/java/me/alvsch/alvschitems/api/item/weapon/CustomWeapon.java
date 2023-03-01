@@ -2,10 +2,12 @@ package me.alvsch.alvschitems.api.item.weapon;
 
 import me.alvsch.alvschitems.api.CustomRecipe;
 import me.alvsch.alvschitems.api.Rarity;
+import me.alvsch.alvschitems.api.ability.Ability;
 import me.alvsch.alvschitems.api.item.BaseItem;
 import me.alvsch.alvschitems.api.item.ItemStats;
 import me.alvsch.alvschitems.core.attributes.AbilityHolder;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 public class CustomWeapon extends BaseItem implements AbilityHolder {
 
     private final ItemStats itemStats;
+    private final List<Ability> abilityList = new ArrayList<>();
 
     public CustomWeapon(ItemStack item, ItemStats itemStats) {
         super(item);
@@ -26,4 +29,12 @@ public class CustomWeapon extends BaseItem implements AbilityHolder {
         this.itemStats = itemStats;
     }
 
+    public void addAbility(Ability ability) {
+        this.abilityList.add(ability);
+    }
+
+    @Override
+    public @NotNull List<Ability> getAbilities() {
+        return abilityList;
+    }
 }

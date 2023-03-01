@@ -5,7 +5,7 @@ import me.alvsch.alvschitems.api.event.ArmorUnequipEvent;
 
 public interface Equippable {
 
-	default void onEquip(ArmorEquipEvent event) {}
-	default void onUnequip(ArmorUnequipEvent event) {}
+	void onEquip(ArmorEquipEvent event);
+	void onUnequip(ArmorUnequipEvent event);
 
 }
