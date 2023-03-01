@@ -29,8 +29,9 @@ public class CustomWeapon extends BaseItem implements AbilityHolder {
         this.itemStats = itemStats;
     }
 
-    public void addAbility(Ability ability) {
+    public CustomWeapon addAbility(Ability ability) {
         this.abilityList.add(ability);
+        return this;
     }
 
     @Override
