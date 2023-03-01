@@ -76,6 +76,10 @@ public class CustomRecipe {
 		AlvschItems.getInstance().getRegistry().getShapelessRecipeList().add(this);
 	}
 
+	public CustomRecipe(List<String> items, boolean shaped) {
+		this(null, items, shaped);
+	}
+
 	public CustomRecipe(ItemStack result, List<String> items, boolean shaped) {
 		this.result = result;
 		this.items = items;
@@ -84,6 +88,7 @@ public class CustomRecipe {
 	}
 
 	public void register() {
+		if(this.result == null) return;
 		if(this.shaped) {
 			AlvschItems.getInstance().getRegistry().getShapedRecipeList().add(this);
 		} else {
