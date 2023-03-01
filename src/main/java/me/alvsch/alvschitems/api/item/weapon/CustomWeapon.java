@@ -14,24 +14,33 @@ import java.util.List;
 
 public class CustomWeapon extends BaseItem implements AbilityHolder {
 
-    private final ItemStats itemStats;
     private final List<Ability> abilityList = new ArrayList<>();
+    private ItemStats itemStats;
 
-    public CustomWeapon(ItemStack item, ItemStats itemStats) {
+    public CustomWeapon(ItemStack item) {
         super(item);
-        this.itemStats = itemStats;
+        CustomWeapon weapon = (CustomWeapon) BaseItem.getById(getId());
+        this.itemStats = weapon.getItemStats();
     }
-    public CustomWeapon(String id, String name, ItemStack item, ItemStats itemStats, Rarity rarity, CustomRecipe recipe) {
-        this(id, name, new ArrayList<>(), item, itemStats, rarity, recipe);
+    public CustomWeapon(String id, String name, ItemStack item, Rarity rarity, CustomRecipe recipe) {
+        this(id, name, new ArrayList<>(), item, rarity, recipe);
     }
-    public CustomWeapon(String id, String name, List<String> lore, ItemStack item, ItemStats itemStats, Rarity rarity, CustomRecipe recipe) {
+    public CustomWeapon(String id, String name, List<String> lore, ItemStack item, Rarity rarity, CustomRecipe recipe) {
         super(id, name, lore, item, rarity, recipe);
-        this.itemStats = itemStats;
     }
 
     public CustomWeapon addAbility(Ability ability) {
         this.abilityList.add(ability);
         return this;
+    }
+
+    public CustomWeapon setItemStats(ItemStats itemStats) {
+        this.itemStats = itemStats;
+        return this;
+    }
+
+    public ItemStats getItemStats() {
+        return this.itemStats;
     }
 
     @Override
