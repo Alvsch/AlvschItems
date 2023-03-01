@@ -22,6 +22,9 @@ public class CustomItemStack extends ItemStack {
 
 	@Override
 	public String toString() {
-		return getType() + ":" + id + ":" + getAmount();
+		return this.toString(getAmount());
+	}
+	public String toString(int amount) {
+		return getType() + ":" + id + ":" + amount;
 	}
 }
