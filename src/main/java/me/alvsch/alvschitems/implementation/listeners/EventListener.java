@@ -10,14 +10,15 @@ import me.alvsch.alvschitems.core.attributes.AbilityHolder;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemBreakEvent;
 
 import java.util.List;
 import java.util.UUID;
 
-public class AbilityUseListener implements Listener {
+public class EventListener implements Listener {
 
 	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event) {
+	public void onAbilityListener(PlayerInteractEvent event) {
 
 		if(event.getItem() == null || !BaseItem.isCustomItem(event.getItem())) return;
 		BaseItem item = BaseItem.getById(new NBTItem(event.getItem()).getString("id"));
@@ -47,7 +48,7 @@ public class AbilityUseListener implements Listener {
 	}
 
 	@EventHandler
-	public void onAbilityUse(AbilityUseEvent event) {
+	public void onAbilityEvent(AbilityUseEvent event) {
 		UUID uuid = event.getPlayer().getUniqueId();
 		String itemId = event.getItem().getId();
 
@@ -57,5 +58,7 @@ public class AbilityUseListener implements Listener {
 		cdManager.addCooldown(uuid, itemId, event.getAbility().getCooldown());
 		event.getAbility().onAbilityUse(event);
 	}
+
+
 
 }

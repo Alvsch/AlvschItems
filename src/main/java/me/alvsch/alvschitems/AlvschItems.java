@@ -5,7 +5,7 @@ import me.alvsch.alvschitems.core.CooldownManager;
 import me.alvsch.alvschitems.core.commands.Craft;
 import me.alvsch.alvschitems.core.commands.MainCommand;
 import me.alvsch.alvschitems.core.scoreboard.CustomScoreboard;
-import me.alvsch.alvschitems.implementation.listeners.AbilityUseListener;
+import me.alvsch.alvschitems.implementation.listeners.EventListener;
 import me.alvsch.alvschitems.implementation.listeners.CraftListener;
 import me.alvsch.alvschitems.implementation.setup.AItemSetup;
 import me.alvsch.alvschitems.implementation.setup.ARecipeSetup;
@@ -58,7 +58,7 @@ public final class AlvschItems extends JavaPlugin {
 		getCommand("craft").setExecutor(new Craft());
 	}
 	private void registerListeners() {
-		getServer().getPluginManager().registerEvents(new AbilityUseListener(), this);
+		getServer().getPluginManager().registerEvents(new EventListener(), this);
 		getServer().getPluginManager().registerEvents(new CraftListener(), this);
 	}
 
