@@ -1,6 +1,7 @@
 package me.alvsch.alvschitems.utils;
 
 import org.bukkit.ChatColor;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -38,6 +39,36 @@ public class Utils {
 		for(int i : amount) {
 			inv.setItem(i, item);
 		}
+	}
+
+	public static String capitalize(String string) {
+		StringBuilder sb = new StringBuilder();
+
+		boolean nextTitleCase = true;
+		for (char c : string.toCharArray()) {
+			if (Character.isSpaceChar(c)) {
+				nextTitleCase = true;
+			} else if (nextTitleCase) {
+				c = Character.toTitleCase(c);
+				nextTitleCase = false;
+			}
+
+			sb.append(c);
+		}
+
+		return sb.toString();
+	}
+
+	public static String attributeToName(Attribute attribute) {
+		String name = attribute.getKey().getKey();
+		name = name.replace("generic.", "");
+		name = capitalize(name.replace("_", " "));
+
+		return name;
+	}
+
+	public static String format(String format, Object... args) {
+		return String.format(format, args);
 	}
 
 }

@@ -1,10 +1,14 @@
 package me.alvsch.alvschitems.api.item;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import de.tr7zw.nbtapi.NBTItem;
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.CustomRecipe;
 import me.alvsch.alvschitems.api.Rarity;
 import org.bukkit.ChatColor;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -22,10 +26,7 @@ public class BaseItem {
 
 	private CustomRecipe recipe;
 
-	/**
-	 * Extra lore for built-in usage
-	 */
-	protected List<String> extraLore = new ArrayList<>();
+	private final Multimap<Attribute, AttributeModifier> modifiers = ArrayListMultimap.create();
 
 	private final ItemStack orig;
 	private ItemStack item;
@@ -92,7 +93,7 @@ public class BaseItem {
 		meta.setDisplayName(rarity.getColor() + this.name);
 
 		List<String> lore = new ArrayList<>(this.lore);
-		lore.addAll(this.extraLore);
+		lore.add("");
 
 		lore.add(rarity.getColor().toString() + ChatColor.BOLD + rarity.name());
 
@@ -100,7 +101,8 @@ public class BaseItem {
 
 		meta.setLore(lore);
 		meta.setUnbreakable(true);
-		meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS);
+		meta.setAttributeModifiers(modifiers);
+		meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
 
 		item.setItemMeta(meta);
 
@@ -155,6 +157,14 @@ public class BaseItem {
 
 	public final void setGlint(boolean glint) {
 		this.glint = glint;
+	}
+
+	public final Multimap<Attribute, AttributeModifier> getModifiers() {
+		return modifiers;
+	}
+
+	public final void addModifier(Attribute attribute, AttributeModifier attributeModifier) {
+		modifiers.put(attribute, attributeModifier);
 	}
 
 	//endregion
