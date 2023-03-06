@@ -21,13 +21,6 @@ public class CooldownManager {
 	public void addCooldown(UUID uuid, Ability ability) {
 		Map<String, BukkitTask> playerCooldowns = cooldowns.computeIfAbsent(uuid, k -> new HashMap<>());
 
-		BukkitTask task = playerCooldowns.get(ability.getId());
-		if (task != null) {
-			if(!ability.isOverwrite()) {
-				return;
-			}
-			task.cancel();
-		}
 		playerCooldowns.put(ability.getId(), new BukkitRunnable() {
 			@Override
 			public void run() {
