@@ -135,10 +135,6 @@ public class BaseItem {
 		return recipe;
 	}
 
-	public final void setRecipe(CustomRecipe recipe) {
-		this.recipe = recipe;
-	}
-
 	public final ItemStack getOriginal() {
 		return orig;
 	}
@@ -147,14 +143,16 @@ public class BaseItem {
 		return item;
 	}
 
-	public final void setItem(ItemStack item) {
-		this.item = item;
-	}
-
 	public final boolean hasGlint() {
 		return glint;
 	}
 
+	public final void setItem(ItemStack item) {
+		this.item = item;
+	}
+	public final void setRecipe(CustomRecipe recipe) {
+		this.recipe = recipe;
+	}
 	public final void setGlint(boolean glint) {
 		this.glint = glint;
 	}
@@ -165,6 +163,9 @@ public class BaseItem {
 
 	public final void addModifier(Attribute attribute, AttributeModifier attributeModifier) {
 		modifiers.put(attribute, attributeModifier);
+	}
+	public final void addAllModifiers(Multimap<Attribute, AttributeModifier> multimap) {
+		modifiers.putAll(multimap);
 	}
 
 	//endregion
