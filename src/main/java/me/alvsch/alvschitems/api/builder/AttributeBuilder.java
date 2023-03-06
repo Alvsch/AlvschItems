@@ -21,6 +21,13 @@ public class AttributeBuilder {
 
     }
 
+    public AttributeBuilder(Attribute attribute, double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
+        this.attribute = attribute;
+        this.amount = amount;
+        this.operation = operation;
+        this.slot = slot;
+    }
+
     public AttributeBuilder setAttribute(Attribute attribute) {
         this.attribute = attribute;
         return this;
