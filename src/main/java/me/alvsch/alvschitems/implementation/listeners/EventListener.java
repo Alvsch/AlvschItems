@@ -10,7 +10,6 @@ import me.alvsch.alvschitems.core.attributes.AbilityHolder;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemBreakEvent;
 
 import java.util.List;
 import java.util.UUID;
@@ -53,9 +52,13 @@ public class EventListener implements Listener {
 		String itemId = event.getItem().getId();
 
 		CooldownManager cdManager = AlvschItems.getInstance().getCooldownManager();
-		if(cdManager.isOnCooldown(uuid, itemId)) return;
+		if(cdManager.isOnCooldown(uuid, itemId)) {
+			if(!event.getAbility().isOverwrite()) {
+				return;
+			}
+		}
 
-		cdManager.addCooldown(uuid, itemId, event.getAbility().getCooldown());
+		cdManager.addCooldown(uuid, event.getAbility());
 		event.getAbility().onAbilityUse(event);
 	}
 

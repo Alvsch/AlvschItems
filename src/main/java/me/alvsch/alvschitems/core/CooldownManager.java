@@ -18,7 +18,7 @@ public class CooldownManager {
 		this.plugin = plugin;
 	}
 
-	public void addCooldown(UUID uuid, Ability ability, double cooldownSeconds) {
+	public void addCooldown(UUID uuid, Ability ability) {
 		Map<String, BukkitTask> playerCooldowns = cooldowns.computeIfAbsent(uuid, k -> new HashMap<>());
 
 		BukkitTask task = playerCooldowns.get(ability.getId());
@@ -36,7 +36,7 @@ public class CooldownManager {
 					cooldowns.remove(uuid);
 				}
 			}
-		}.runTaskLater(plugin, (long) cooldownSeconds * 20L));
+		}.runTaskLater(plugin, (long) ability.getCooldown() * 20L));
 	}
 
 
