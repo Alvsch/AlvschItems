@@ -19,6 +19,8 @@ public abstract class Ability {
     private String prefix2 = "";
     private boolean showCooldown = true;
 
+    private boolean overwrite = false;
+
     public Ability(String id, String name, List<String> description, double cooldown, AbilityType abilityType) {
         this.id = id;
 
@@ -85,6 +87,14 @@ public abstract class Ability {
 
     public final void setShowCooldown(boolean showCooldown) {
         this.showCooldown = showCooldown;
+    }
+
+    public final void setOverwrite(boolean bool) {
+        this.overwrite = bool;
+    }
+
+    public final boolean isOverwrite() {
+        return overwrite;
     }
 
     //endregion

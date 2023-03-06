@@ -1,7 +1,9 @@
 package me.alvsch.alvschitems.core;
 
 import me.alvsch.alvschitems.AlvschItems;
+import me.alvsch.alvschitems.api.ability.Ability;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,42 +12,39 @@ import java.util.UUID;
 public class CooldownManager {
 
 	private final AlvschItems plugin;
-	private final Map<UUID, Map<String, Long>> cooldowns = new HashMap<>();
+	private final Map<UUID, Map<String, BukkitTask>> cooldowns = new HashMap<>();
 
 	public CooldownManager(AlvschItems plugin) {
 		this.plugin = plugin;
 	}
 
-	public void addCooldown(UUID uuid, String itemId, double cooldownSeconds) {
-		Map<String, Long> playerCooldowns = cooldowns.computeIfAbsent(uuid, k -> new HashMap<>());
+	public void addCooldown(UUID uuid, Ability ability, double cooldownSeconds) {
+		Map<String, BukkitTask> playerCooldowns = cooldowns.computeIfAbsent(uuid, k -> new HashMap<>());
 
-		long endTime = ((long) cooldownSeconds * 1000L) + System.currentTimeMillis();
-		playerCooldowns.put(itemId, endTime);
-		new BukkitRunnable() {
+		BukkitTask task = playerCooldowns.get(ability.getId());
+		if (task != null) {
+			if(!ability.isOverwrite()) {
+				return;
+			}
+			task.cancel();
+		}
+		playerCooldowns.put(ability.getId(), new BukkitRunnable() {
 			@Override
 			public void run() {
-				playerCooldowns.remove(itemId);
+				playerCooldowns.remove(ability.getId());
 				if (playerCooldowns.isEmpty()) {
 					cooldowns.remove(uuid);
 				}
 			}
-		}.runTaskLater(plugin, (long) cooldownSeconds * 20L);
+		}.runTaskLater(plugin, (long) cooldownSeconds * 20L));
 	}
+
 
 	public boolean isOnCooldown(UUID uuid, String itemId) {
-		Map<String, Long> playerCooldowns = cooldowns.get(uuid);
+		Map<String, BukkitTask> playerCooldowns = cooldowns.get(uuid);
 
 		if(playerCooldowns == null) return false;
-		if(playerCooldowns.get(itemId) == null) return false;
-
-		return true;
-	}
-
-	public int getRemainingSeconds(UUID uuid, String itemId) {
-		if(!isOnCooldown(uuid, itemId)) return 0;
-
-		long endTime = cooldowns.get(uuid).get(itemId);
-		return (int) Math.ceil((endTime - System.currentTimeMillis()) / 1000.0);
+		return playerCooldowns.get(itemId) != null;
 	}
 
 }
