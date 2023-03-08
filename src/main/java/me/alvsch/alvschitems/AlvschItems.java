@@ -3,8 +3,10 @@ package me.alvsch.alvschitems;
 import me.alvsch.alvschitems.core.AlvschRegistry;
 import me.alvsch.alvschitems.core.CooldownManager;
 import me.alvsch.alvschitems.core.commands.Craft;
+import me.alvsch.alvschitems.core.commands.Dummy;
 import me.alvsch.alvschitems.core.commands.MainCommand;
 import me.alvsch.alvschitems.core.scoreboard.CustomScoreboard;
+import me.alvsch.alvschitems.implementation.listeners.DamageListener;
 import me.alvsch.alvschitems.implementation.listeners.EventListener;
 import me.alvsch.alvschitems.implementation.listeners.CraftListener;
 import me.alvsch.alvschitems.implementation.setup.AItemSetup;
@@ -56,10 +58,12 @@ public final class AlvschItems extends JavaPlugin {
 		getCommand("alvschitems").setTabCompleter(new MainCommand());
 
 		getCommand("craft").setExecutor(new Craft());
+		getCommand("dummy").setExecutor(new Dummy());
 	}
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new EventListener(), this);
 		getServer().getPluginManager().registerEvents(new CraftListener(), this);
+		getServer().getPluginManager().registerEvents(new DamageListener(), this);
 	}
 
 	public static AlvschItems getInstance() {
