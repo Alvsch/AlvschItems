@@ -97,6 +97,7 @@ public class CustomRecipe {
 	}
 
 	public boolean canCraft(List<ItemStack> matrix) {
+		if(this.items == null) return false;
 		for(int i = 0; i < items.size(); i++) {
 			String[] data = items.get(i).split(":");
 			ItemStack matrixItem = matrix.get(i);

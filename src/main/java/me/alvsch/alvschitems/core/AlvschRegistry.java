@@ -18,6 +18,7 @@ public class AlvschRegistry {
 	private final List<CustomRecipe> shapelessRecipeList = new ArrayList<>();
 
 	public AlvschRegistry(AlvschItems instance) {
+
 	}
 
 	public Map<String, BaseItem> getItemIds() {

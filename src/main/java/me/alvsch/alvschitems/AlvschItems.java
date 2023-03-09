@@ -3,21 +3,22 @@ package me.alvsch.alvschitems;
 import me.alvsch.alvschitems.core.AlvschRegistry;
 import me.alvsch.alvschitems.core.CooldownManager;
 import me.alvsch.alvschitems.core.commands.Craft;
-import me.alvsch.alvschitems.core.commands.Dummy;
 import me.alvsch.alvschitems.core.commands.MainCommand;
 import me.alvsch.alvschitems.core.scoreboard.CustomScoreboard;
-import me.alvsch.alvschitems.implementation.listeners.DamageListener;
-import me.alvsch.alvschitems.implementation.listeners.EventListener;
 import me.alvsch.alvschitems.implementation.listeners.CraftListener;
+import me.alvsch.alvschitems.implementation.listeners.EventListener;
+import me.alvsch.alvschitems.implementation.listeners.JoinListener;
 import me.alvsch.alvschitems.implementation.setup.AItemSetup;
 import me.alvsch.alvschitems.implementation.setup.ARecipeSetup;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
 
 public final class AlvschItems extends JavaPlugin {
 
 	private static AlvschItems instance;
 	private final AlvschRegistry registry = new AlvschRegistry(this);
 	private final CooldownManager cooldownManager = new CooldownManager(this);
+	private Scoreboard scoreboard = null;
 
 	@Override
 	public void onEnable() {
@@ -44,7 +45,6 @@ public final class AlvschItems extends JavaPlugin {
 		Logger.log(Logger.LogLevel.SUCCESS, "Plugin is loaded!");
 		Logger.log(Logger.LogLevel.OUTLINE, "********************");
 
-		new CustomScoreboard();
 	}
 
 	@Override
@@ -58,16 +58,19 @@ public final class AlvschItems extends JavaPlugin {
 		getCommand("alvschitems").setTabCompleter(new MainCommand());
 
 		getCommand("craft").setExecutor(new Craft());
-		getCommand("dummy").setExecutor(new Dummy());
 	}
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new EventListener(), this);
 		getServer().getPluginManager().registerEvents(new CraftListener(), this);
-		getServer().getPluginManager().registerEvents(new DamageListener(), this);
+		getServer().getPluginManager().registerEvents(new JoinListener(), this);
 	}
 
 	public static AlvschItems getInstance() {
 		return instance;
+	}
+	public Scoreboard getScoreboard() {
+		if(scoreboard == null) scoreboard = new CustomScoreboard().getScoreboard();
+		return scoreboard;
 	}
 	public AlvschRegistry getRegistry() {
 		return registry;

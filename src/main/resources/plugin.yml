@@ -13,5 +13,3 @@ commands:
     usage: /<command>
   craft:
     usage: /<command>
-  dummy:
-    usage: /<command>
