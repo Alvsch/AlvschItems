@@ -26,6 +26,7 @@ public class BaseItem {
 
 	private CustomRecipe recipe;
 
+	protected final List<String> extraLore = new ArrayList<>();
 	private final Multimap<Attribute, AttributeModifier> modifiers = ArrayListMultimap.create();
 
 	private final ItemStack orig;
@@ -93,7 +94,7 @@ public class BaseItem {
 		meta.setDisplayName(rarity.getColor() + this.name);
 
 		List<String> lore = new ArrayList<>(this.lore);
-		lore.add("");
+		lore.addAll(this.extraLore);
 
 		lore.add(rarity.getColor().toString() + ChatColor.BOLD + rarity.name());
 

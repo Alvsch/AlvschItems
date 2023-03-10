@@ -34,8 +34,11 @@ public final class AlvschItems extends JavaPlugin {
 
 		Logger.log(Logger.LogLevel.INFO, "Items are loading!");
 		AItemSetup.setup();
-		ARecipeSetup.setup();
 		Logger.log(Logger.LogLevel.INFO, "Items are loaded!");
+
+		Logger.log(Logger.LogLevel.INFO, "Recipes are loading!");
+		ARecipeSetup.setup();
+		Logger.log(Logger.LogLevel.INFO, "Recipes are loaded!");
 
 
 		Logger.log(Logger.LogLevel.SUCCESS, "Plugin is loaded!");
