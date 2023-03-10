@@ -37,7 +37,7 @@ public class BaseItem {
 	/**
 	 * Create a {@link BaseItem} from an {@link ItemStack}
 	 *
-	 * @param item item
+	 * @param item the BaseItem as an ItemStack
 	 */
 	public BaseItem(ItemStack item) {
 		this.item = item;
@@ -89,6 +89,10 @@ public class BaseItem {
 		}
 	}
 
+	/**
+	 *
+	 * @return The {@link ItemStack} created
+	 */
 	public ItemStack createItem() {
 		this.item = this.orig.clone();
 
