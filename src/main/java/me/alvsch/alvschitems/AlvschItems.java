@@ -6,6 +6,7 @@ import me.alvsch.alvschitems.core.commands.Craft;
 import me.alvsch.alvschitems.core.commands.MainCommand;
 import me.alvsch.alvschitems.implementation.listeners.CraftListener;
 import me.alvsch.alvschitems.implementation.listeners.EventListener;
+import me.alvsch.alvschitems.implementation.listeners.PlayerJoinListener;
 import me.alvsch.alvschitems.implementation.setup.AItemSetup;
 import me.alvsch.alvschitems.implementation.setup.ARecipeSetup;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -61,6 +62,7 @@ public final class AlvschItems extends JavaPlugin {
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new EventListener(), this);
 		getServer().getPluginManager().registerEvents(new CraftListener(), this);
+		getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
 	}
 
 	public static AlvschItems getInstance() {

@@ -48,11 +48,15 @@ public class BaseItem {
 		this.id = nbtItem.getString("id");
 
 		BaseItem baseItem = BaseItem.getById(id);
-		this.name = nbtItem.getName();
+
+		this.name = baseItem.getName();
 		this.lore = baseItem.getLore();
 		this.rarity = baseItem.getRarity();
 		this.recipe = baseItem.getRecipe();
+		this.glint = baseItem.hasGlint();
 
+		this.extraLore.addAll(baseItem.getExtraLore());
+		this.modifiers.putAll(baseItem.getModifiers());
 	}
 
 	/**
@@ -94,7 +98,11 @@ public class BaseItem {
 		meta.setDisplayName(rarity.getColor() + this.name);
 
 		List<String> lore = new ArrayList<>(this.lore);
-		lore.addAll(this.extraLore);
+		lore.add("");
+		if(this.extraLore.size() > 0) {
+			lore.addAll(this.extraLore);
+			lore.add("");
+		}
 
 		lore.add(rarity.getColor().toString() + ChatColor.BOLD + rarity.name());
 
@@ -156,6 +164,9 @@ public class BaseItem {
 	}
 	public final void setGlint(boolean glint) {
 		this.glint = glint;
+	}
+	public final List<String> getExtraLore() {
+		return extraLore;
 	}
 
 	public final Multimap<Attribute, AttributeModifier> getModifiers() {

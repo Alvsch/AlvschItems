@@ -24,14 +24,14 @@ public class CustomWeapon extends BaseItem implements AbilityHolder {
     }
     public CustomWeapon(String id, String name, List<String> lore, ItemStack item, Rarity rarity, CustomRecipe recipe) {
         super(id, name, lore, item, rarity, recipe);
-        for(Ability a : getAbilities()) {
-            extraLore.addAll(a.toLore());
-        }
     }
 
     @Override
     public void register() {
         super.register();
+        for(Ability a : getAbilities()) {
+            extraLore.addAll(a.toLore());
+        }
     }
 
     public void addAbility(Ability ability) {
