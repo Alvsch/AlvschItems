@@ -35,9 +35,9 @@ public class BaseItem {
 	private boolean glint;
 
 	/**
-	 * Create a {@link BaseItem} from an {@link ItemStack}
+	 * Constructs a new BaseItem object with the given ItemStack.
 	 *
-	 * @param item the BaseItem as an ItemStack
+	 * @param item the ItemStack to be used to create the BaseItem.
 	 */
 	public BaseItem(ItemStack item) {
 		this.item = item;
@@ -60,17 +60,28 @@ public class BaseItem {
 	}
 
 	/**
+	 * Constructs a new BaseItem object with the given parameters.
 	 *
-	 * @param id The unique {@link BaseItem} identifier
-	 * @param name The {@link BaseItem} display name
-	 * @param item The {@link ItemStack} used to create the {@link BaseItem}
-	 * @param rarity The {@link BaseItem} rarity
-	 * @param recipe The recipe for the {@link BaseItem}
+	 * @param id the unique identifier of the BaseItem object.
+	 * @param name the display name of the BaseItem object.
+	 * @param item the ItemStack used to create the BaseItem object.
+	 * @param rarity the rarity of the BaseItem object.
+	 * @param recipe the recipe for the BaseItem object.
 	 */
 	public BaseItem(String id, String name, ItemStack item, Rarity rarity, CustomRecipe recipe) {
 		this(id, name, new ArrayList<>(), item, rarity, recipe);
 	}
 
+	/**
+	 * Constructs a new BaseItem object with the given parameters.
+	 *
+	 * @param id the unique identifier of the BaseItem object.
+	 * @param name the display name of the BaseItem object.
+	 * @param lore the lore of the BaseItem object.
+	 * @param item the ItemStack used to create the BaseItem object.
+	 * @param rarity the rarity of the BaseItem object.
+	 * @param recipe the recipe for the BaseItem object.
+	 */
 	public BaseItem(String id, String name, List<String> lore, ItemStack item, Rarity rarity, CustomRecipe recipe) {
 		this.id = id;
 		this.name = name;
@@ -90,8 +101,9 @@ public class BaseItem {
 	}
 
 	/**
-	 *
-	 * @return The {@link ItemStack} created
+	 * Creates an ItemStack object based on the BaseItem object's attributes.
+	 * The orig attribute is cloned to create a new ItemStack object.
+	 * @return The new modified ItemStack object is returned.
 	 */
 	public ItemStack createItem() {
 		this.item = this.orig.clone();
