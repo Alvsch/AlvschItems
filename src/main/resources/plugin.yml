@@ -1,0 +1,27 @@
+name: AlvschItems
+version: '${project.version}'
+main: me.alvsch.alvschitems.AlvschItems
+api-version: 1.18
+authors: [ Alvsch1 ]
+description: Custom items plugin, hypixel skyblock remake
+commands:
+  alvschitems:
+    usage: /<command> <give|list> <player> <item> [amount]
+    permission: "alvschitems.admin"
+    permission-message: 'Unknown command. Type "/help" for help.'
+    aliases:
+      - items
+      - i
+      - alvschitem
+
+  craft:
+    usage: /<command>
+    description: Custom crafting menu
+    permission: "alvschitems.craft"
+    permission-message: 'Unknown command. Type "/help" for help.'
+
+permissions:
+  alvschitems.admin:
+    default: op
+  alvschitems.craft:
+    default: true
