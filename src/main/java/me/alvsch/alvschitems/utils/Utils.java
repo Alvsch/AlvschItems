@@ -16,6 +16,7 @@ public class Utils {
 	public static String color(String text) {
 		return ChatColor.translateAlternateColorCodes('&',text);
 	}
+
 	public static List<String> color(List<String> list) {
 		List<String> list2 = new ArrayList<>();
 		for(String s : list) {
@@ -83,8 +84,7 @@ public class Utils {
 			if (stack == null || stack.getType() == Material.AIR) {
 				continue;
 			}
-
-			if (AlvschItems.getCustomItemDataService().hasEqualItemData(stack.getItemMeta(), item.getItemMeta())) {
+			if (AlvschItems.getCustomItemDataService().hasEqualItemData(stack, item)) {
 				return true;
 			}
 		}

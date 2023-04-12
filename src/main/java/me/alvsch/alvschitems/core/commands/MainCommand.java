@@ -2,6 +2,7 @@ package me.alvsch.alvschitems.core.commands;
 
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.item.BaseItem;
+import me.alvsch.alvschitems.utils.Utils;
 import me.alvsch.alvschitems.utils.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -46,6 +47,7 @@ public class MainCommand implements TabExecutor {
 				inv.addItem(item.createItem());
 			}
 
+			player.sendMessage(Utils.color("&aOpening items list"));
 			player.openInventory(inv);
 			return true;
 		}

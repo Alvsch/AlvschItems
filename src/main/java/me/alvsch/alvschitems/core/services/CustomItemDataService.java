@@ -1,5 +1,6 @@
 package me.alvsch.alvschitems.core.services;
 
+import me.alvsch.alvschitems.api.item.CustomItemStack;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
@@ -146,6 +147,32 @@ public class CustomItemDataService implements Keyed {
             // No value present, we can return immediately.
             return false;
         }
+    }
+
+    public boolean hasEqualItemData(@NotNull ItemStack item1, @NotNull ItemStack item2) {
+        String id1 = null;
+        String id2 = null;
+        if(item1 instanceof CustomItemStack stack1) {
+            id1 = stack1.getId();
+        }
+
+        // Check if item2 is a CustomItemStack
+        if(item2 instanceof CustomItemStack stack2) {
+            id2 = stack2.getId();
+        }
+
+        if(id1 != null) {
+            if(id2 != null) {
+                return id1.equals(id2);
+            }
+        }
+
+        if(id2 != null) {
+            Optional<String> data1 = getItemData(item1);
+            return data1.isPresent() && data1.get().equals(id2);
+        }
+
+        return hasEqualItemData(item1.getItemMeta(), item2.getItemMeta());
     }
 
 
