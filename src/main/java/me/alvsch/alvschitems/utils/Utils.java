@@ -2,9 +2,11 @@ package me.alvsch.alvschitems.utils;
 
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.item.CustomItemStack;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -73,6 +75,10 @@ public class Utils {
 
 	public static String format(String format, Object... args) {
 		return String.format(format, args);
+	}
+
+	public static String formatEnchant(Enchantment enchantment, int level) {
+		return WordUtils.capitalize(enchantment.getKey().getKey().replaceAll("_", " ")) + " " + RomanConverter.intToRoman(level);
 	}
 
 	public static boolean containsSimilarItem(Inventory inventory, CustomItemStack item) {

@@ -95,6 +95,20 @@ public class MainCommand implements TabExecutor {
 			AlvschItems.getInstance().createFiles();
 			sender.sendMessage("Reloaded config.yml");
 		}
+		// Fix item
+		if(args[0].equalsIgnoreCase("fixitem")) {
+			if(!(sender instanceof Player player)) {
+				return false;
+			}
+			ItemStack itemStack = player.getInventory().getItemInMainHand();
+			if(!BaseItem.isCustomItem(itemStack)) {
+				player.sendMessage("You need to hold a custom item");
+				return false;
+			}
+			BaseItem item = new BaseItem(itemStack);
+			player.getInventory().setItemInMainHand(item.createItem());
+			sender.sendMessage("fixed");
+		}
 
 		return true;
 	}
@@ -105,7 +119,7 @@ public class MainCommand implements TabExecutor {
 		List<String> list = new ArrayList<>();
 
 		if(args.length == 1) {
-			list.addAll(Stream.of("give", "list", "debug", "reload")
+			list.addAll(Stream.of("give", "list", "debug", "reload", "fixitem")
 					.filter(entry -> entry.startsWith(args[0]))
 					.toList());
 

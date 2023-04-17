@@ -2,6 +2,8 @@ package me.alvsch.alvschitems.api.item;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import lombok.Getter;
+import lombok.Setter;
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.CustomRecipe;
 import me.alvsch.alvschitems.api.Rarity;
@@ -17,9 +19,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import static java.util.stream.Collectors.joining;
+
 @SuppressWarnings("unused")
+@Getter
 public class BaseItem implements NotPlaceable {
 
 	private final String id;
@@ -27,14 +33,17 @@ public class BaseItem implements NotPlaceable {
 	private final List<String> lore;
 	private final Rarity rarity;
 
+	@Setter
 	private CustomRecipe recipe;
 
 	protected final List<String> extraLore = new ArrayList<>();
 	private final Multimap<Attribute, AttributeModifier> modifiers = ArrayListMultimap.create();
 
 	private final ItemStack orig;
+	@Setter
 	private ItemStack item;
 
+	@Setter
 	private boolean glint;
 
 	/**
@@ -53,7 +62,7 @@ public class BaseItem implements NotPlaceable {
 		this.lore = baseItem.getLore();
 		this.rarity = baseItem.getRarity();
 		this.recipe = baseItem.getRecipe();
-		this.glint = baseItem.hasGlint();
+		this.glint = baseItem.isGlint();
 
 		this.extraLore.addAll(baseItem.getExtraLore());
 		this.modifiers.putAll(baseItem.getModifiers());
@@ -119,6 +128,10 @@ public class BaseItem implements NotPlaceable {
 		meta.setDisplayName(rarity.getColor() + this.name);
 
 		List<String> lore = new ArrayList<>(this.lore);
+		if(!this.item.getEnchantments().isEmpty()) {
+			lore.add("");
+			lore.add("&9" + this.enchantToString(this.item.getEnchantments()));
+		}
 		lore.add("");
 		lore.addAll(this.extraLore);
 
@@ -136,65 +149,21 @@ public class BaseItem implements NotPlaceable {
 		return item;
 	}
 
-	//region Getters Setters
-
-	public final String getId() {
-		return id;
-	}
-
-	public final String getName() {
-		return name;
-	}
-
-	public final List<String> getLore() {
-		return lore;
-	}
-
-	public final Rarity getRarity() {
-		return rarity;
-	}
-
-	public final CustomRecipe getRecipe() {
-		return recipe;
-	}
-
-	public final ItemStack getOriginal() {
-		return orig;
-	}
-
-	public final ItemStack getItem() {
-		return item;
-	}
-
-	public final boolean hasGlint() {
-		return glint;
-	}
-
-	public final void setItem(ItemStack item) {
-		this.item = item;
-	}
-	public final void setRecipe(CustomRecipe recipe) {
-		this.recipe = recipe;
-	}
-	public final void setGlint(boolean glint) {
-		this.glint = glint;
-	}
-	public final List<String> getExtraLore() {
-		return extraLore;
-	}
-
-	public final Multimap<Attribute, AttributeModifier> getModifiers() {
-		return modifiers;
+	private String enchantToString(Map<Enchantment, Integer> map) {
+		return map.entrySet()
+				.stream()
+				.filter(entry -> !entry.getKey().equals(Enchantment.DURABILITY))
+				.map(entry -> Utils.formatEnchant(entry.getKey(), entry.getValue()))
+				.collect(joining(", "));
 	}
 
 	public final void addModifier(Attribute attribute, AttributeModifier attributeModifier) {
 		modifiers.put(attribute, attributeModifier);
 	}
+
 	public final void addAllModifiers(Multimap<Attribute, AttributeModifier> multimap) {
 		modifiers.putAll(multimap);
 	}
-
-	//endregion
 
 	/**
 	 * Get the BaseItem from the registry by id
