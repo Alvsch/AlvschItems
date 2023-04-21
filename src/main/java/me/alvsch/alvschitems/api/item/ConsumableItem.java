@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 public abstract class ConsumableItem extends BaseItem implements Consumable {
+
     public ConsumableItem(ItemStack item) {
         super(item);
     }

@@ -33,11 +33,11 @@ public class BaseItem implements NotPlaceable {
 	private final List<String> lore;
 	private final Rarity rarity;
 
+	private final Multimap<Attribute, AttributeModifier> modifiers = ArrayListMultimap.create();
+	protected final List<String> extraLore = new ArrayList<>();
+
 	@Setter
 	private CustomRecipe recipe;
-
-	protected final List<String> extraLore = new ArrayList<>();
-	private final Multimap<Attribute, AttributeModifier> modifiers = ArrayListMultimap.create();
 
 	private final ItemStack orig;
 	@Setter

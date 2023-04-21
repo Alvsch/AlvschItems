@@ -1,5 +1,6 @@
 package me.alvsch.alvschitems.core;
 
+import lombok.Getter;
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.CustomRecipe;
 import me.alvsch.alvschitems.api.ability.Ability;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class AlvschRegistry {
 
 	private final Map<String, BaseItem> itemIds = new HashMap<>();
@@ -19,19 +21,6 @@ public class AlvschRegistry {
 
 	public AlvschRegistry(AlvschItems instance) {
 
-	}
-
-	public Map<String, BaseItem> getItemIds() {
-		return itemIds;
-	}
-	public Map<String, Ability> getAbilityIds() {
-		return abilityIds;
-	}
-	public List<CustomRecipe> getShapedRecipeList() {
-		return shapedRecipeList;
-	}
-	public List<CustomRecipe> getShapelessRecipeList() {
-		return shapelessRecipeList;
 	}
 
 }

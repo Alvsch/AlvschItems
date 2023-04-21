@@ -1,10 +1,12 @@
 package me.alvsch.alvschitems.api.item;
 
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class CustomItemStack extends ItemStack {
 
+	@Getter
 	private final String id;
 
 	public CustomItemStack(String id, Material material) {
@@ -14,11 +16,6 @@ public class CustomItemStack extends ItemStack {
 		super(material, amount);
 		this.id = id;
 	}
-
-	public String getId() {
-		return id;
-	}
-
 
 	@Override
 	public String toString() {

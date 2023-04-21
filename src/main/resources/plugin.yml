@@ -24,4 +24,4 @@ permissions:
   alvschitems.admin:
     default: op
   alvschitems.craft:
-    default: true
+    default: op

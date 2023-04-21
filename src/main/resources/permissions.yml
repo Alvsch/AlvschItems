@@ -1,0 +1,7 @@
+items-list: "alvschitems.items.list"
+items-list-others: "alvschitems.items.list.others"
+
+items-give: "alvschitems.items.give"
+items-debug: "alvschitems.items.debug"
+items-reload: "alvschitems.items.reload"
+items-fixitem: "alvschitems.items.fixitem"

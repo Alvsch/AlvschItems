@@ -1,5 +1,6 @@
 package me.alvsch.alvschitems.api;
 
+import lombok.Getter;
 import me.alvsch.alvschitems.AlvschItems;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -9,6 +10,7 @@ import org.bukkit.inventory.ShapelessRecipe;
 
 import java.util.*;
 
+@Getter
 public class CustomRecipe {
 
 	private final ItemStack result;
@@ -123,20 +125,6 @@ public class CustomRecipe {
 		}
 		return true;
 	}
-
-	//region Getters
-	public ItemStack getResult() {
-		return result;
-	}
-
-	public List<String> getItems() {
-		return items;
-	}
-
-	public boolean isShaped() {
-		return shaped;
-	}
-	//endregion
 
 	private static final Map<Integer, Integer> slots = new HashMap<>(Map.of(
 			0, 10,

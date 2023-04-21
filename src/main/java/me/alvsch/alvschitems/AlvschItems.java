@@ -1,5 +1,6 @@
 package me.alvsch.alvschitems;
 
+import lombok.Getter;
 import me.alvsch.alvschitems.api.Rarity;
 import me.alvsch.alvschitems.api.item.BaseItem;
 import me.alvsch.alvschitems.api.item.CustomItemStack;
@@ -13,6 +14,7 @@ import me.alvsch.alvschitems.implementation.listeners.CraftListener;
 import me.alvsch.alvschitems.implementation.listeners.EventListener;
 import me.alvsch.alvschitems.implementation.listeners.PlayerJoinListener;
 import me.alvsch.alvschitems.implementation.setup.RecipeSetup;
+import me.alvsch.alvschitems.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,7 +23,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.File;
@@ -29,15 +30,22 @@ import java.io.IOException;
 
 public final class AlvschItems extends JavaPlugin {
 
+	@Getter
 	private static AlvschItems instance;
 
 	private final AlvschRegistry registry = new AlvschRegistry(this);
+	@Getter
 	private final CooldownManager cooldownManager = new CooldownManager(this);
+	@Getter
 	private final TaskHandler taskHandler = new TaskHandler();
 
 	private final CustomItemDataService customItemDataService = new CustomItemDataService(this, "alvsch_item");
 
+	@Getter
 	private FileConfiguration config;
+
+	private FileConfiguration permissions;
+	private FileConfiguration messages;
 
 	public static CustomItemStack TEST_ITEM = new CustomItemStack("TEST_ITEM", Material.STICK);
 
@@ -104,8 +112,8 @@ public final class AlvschItems extends JavaPlugin {
 	 */
 	@SuppressWarnings("ConstantConditions")
 	private void registerCommands() {
-		getCommand("alvschitems").setExecutor(new MainCommand());
-		getCommand("alvschitems").setTabCompleter(new MainCommand());
+		getCommand("alvschitems").setExecutor(new MainCommand(this));
+		getCommand("alvschitems").setTabCompleter(new MainCommand(this));
 
 		getCommand("craft").setExecutor(new Craft());
 	}
@@ -137,20 +145,24 @@ public final class AlvschItems extends JavaPlugin {
 	public boolean createFiles() {
 		File configf = new File(getDataFolder(), "config.yml");
 		loadFile(configf, "config.yml");
+		File permissionsf = new File(getDataFolder(), "permissions.yml");
+		loadFile(permissionsf, "permissions.yml");
+		File messagesf = new File(getDataFolder(), "messages.yml");
+		loadFile(messagesf, "messages.yml");
 
 		config = new YamlConfiguration();
+		permissions = new YamlConfiguration();
+		messages = new YamlConfiguration();
 		try {
 			config.load(configf);
+			permissions.load(permissionsf);
+			messages.load(messagesf);
 		} catch (IOException | InvalidConfigurationException e) {
 			e.printStackTrace();
 			return false;
 		}
 
 		return true;
-	}
-
-	public static AlvschItems getInstance() {
-		return instance;
 	}
 
 	public static AlvschRegistry getRegistry() {
@@ -162,17 +174,16 @@ public final class AlvschItems extends JavaPlugin {
 	}
 
 
-	public @NotNull FileConfiguration getConfig() {
-		return config;
+	public String getPermission(String key) {
+		String permission = permissions.getString(key);
+		if(permission == null) throw new NullPointerException("Permission not found");
+		return permission;
 	}
 
-	public CooldownManager getCooldownManager() {
-		return cooldownManager;
+	public String getMessage(String key) {
+		String message = messages.getString(key);
+		if(message == null) message = "Message not found: " + key;
+		return Utils.color(message);
 	}
-
-	public TaskHandler getTaskHandler() {
-		return taskHandler;
-	}
-
 
 }

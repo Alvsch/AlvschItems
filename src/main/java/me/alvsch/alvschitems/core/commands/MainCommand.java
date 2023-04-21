@@ -1,9 +1,8 @@
 package me.alvsch.alvschitems.core.commands;
 
+import lombok.RequiredArgsConstructor;
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.item.BaseItem;
-import me.alvsch.alvschitems.utils.Utils;
-import me.alvsch.alvschitems.utils.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -18,24 +17,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+@RequiredArgsConstructor
 public class MainCommand implements TabExecutor {
+
+	private final AlvschItems plugin;
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-		if(!Validate.argsLength(args, 1)) return false;
+		if(args.length < 1) {
+			return false;
+		}
 
 		// Open list
 		if(args[0].equalsIgnoreCase("list")) {
-			Player player;
+			if(!sender.hasPermission(plugin.getPermission("items-list"))) {
+				sender.sendMessage(plugin.getMessage("no-permission"));
+				return false;
+			}
 
 			// Minimum two args
+			Player player;
 			if (args.length >= 2) {
 				// Get player from second arg
 				player = Bukkit.getPlayerExact(args[1]);
-				if(player == null) return false;
+				if (player == null) {
+					sender.sendMessage(plugin.getMessage("player-not-found"));
+					return false;
+				}
 			} else {
 				// Get sender as player
-				if(!(sender instanceof Player)) {
+				if (!(sender instanceof Player)) {
+					sender.sendMessage(plugin.getMessage("console-cant-execute"));
 					return false;
 				}
 				player = (Player) sender;
@@ -47,59 +59,89 @@ public class MainCommand implements TabExecutor {
 				inv.addItem(item.createItem());
 			}
 
-			player.sendMessage(Utils.color("&aOpening items list"));
+			player.sendMessage(plugin.getMessage("item-list-open"));
 			player.openInventory(inv);
 			return true;
 		}
 		// Give
 		if(args[0].equalsIgnoreCase("give")) {
-			if(!(args.length >= 3)) {
+			if(!sender.hasPermission(plugin.getPermission("items-give"))) {
+				sender.sendMessage(plugin.getMessage("no-permission"));
+				return false;
+			}
+			if(args.length < 3) {
+				return false;
+			}
+			Player target = Bukkit.getPlayerExact(args[1]);
+			if(target == null) {
+				sender.sendMessage(plugin.getMessage("player-not-found"));
+				return false;
+			}
+			BaseItem customItem = BaseItem.getById(args[2]);
+			if(customItem == null) {
+				sender.sendMessage(plugin.getMessage("custom-item-not-found"));
 				return false;
 			}
 
-			Player player = Bukkit.getPlayerExact(args[1]);
-			BaseItem aItem = BaseItem.getById(args[2]);
-			if(aItem == null || player == null) {
-				return false;
-			}
 			int amount = 1;
+			// Set custom amount
 			if(args.length >= 4) {
 				amount = Math.max(1, Integer.parseInt(args[3]));
 				if (Double.isNaN(Double.parseDouble(args[3]))) amount = 1;
 				amount = Math.min(64, amount);
 			}
 
-			ItemStack item = aItem.createItem();
+			ItemStack item = customItem.createItem();
 			item.setAmount(amount);
-			player.getInventory().addItem(item);
+
+			sender.sendMessage(plugin.getMessage("item-give-success").replace("{sender}", target.getName()));
+			target.getInventory().addItem(item);
 		}
 		// Debug
 		if(args[0].equalsIgnoreCase("debug")) {
-			if(!Validate.argsLength(args, 2)) return false;
+			if(!sender.hasPermission(plugin.getPermission("items-debug"))) {
+				sender.sendMessage(plugin.getMessage("no-permission"));
+				return false;
+			}
+			if(args.length < 2) {
+				return false;
+			}
 
 			if(args[1].equalsIgnoreCase("item")) {
-				if(!Validate.isInstanceOf(Player.class, sender)) return false;
-
-				Player player = (Player) sender;
+				if(!(sender instanceof Player player)) {
+					return false;
+				}
 				BaseItem item = BaseItem.getByItem(player.getInventory().getItemInMainHand());
 
 				player.sendMessage("ID: " + item.getId());
 				player.sendMessage("Name: " + item.getName());
 				player.sendMessage("Rarity: " + item.getRarity());
+				return true;
 			}
+			return false;
 
 		}
 		// Reload
 		if(args[0].equalsIgnoreCase("reload")) {
-			sender.sendMessage("Reloading config.yml");
-			AlvschItems.getInstance().createFiles();
-			sender.sendMessage("Reloaded config.yml");
+			if(!sender.hasPermission(plugin.getPermission("items-reload"))) {
+				sender.sendMessage(plugin.getMessage("no-permission"));
+				return false;
+			}
+			sender.sendMessage(plugin.getMessage("reload-start"));
+			plugin.createFiles();
+			sender.sendMessage(plugin.getMessage("reload-finish"));
 		}
 		// Fix item
 		if(args[0].equalsIgnoreCase("fixitem")) {
-			if(!(sender instanceof Player player)) {
+			if(!sender.hasPermission(plugin.getPermission("items-fixitem"))) {
+				sender.sendMessage(plugin.getMessage("no-permission"));
 				return false;
 			}
+			if(!(sender instanceof Player player)) {
+				sender.sendMessage(plugin.getMessage("console-cant-execute"));
+				return false;
+			}
+
 			ItemStack itemStack = player.getInventory().getItemInMainHand();
 			if(!BaseItem.isCustomItem(itemStack)) {
 				player.sendMessage("You need to hold a custom item");
@@ -107,7 +149,7 @@ public class MainCommand implements TabExecutor {
 			}
 			BaseItem item = new BaseItem(itemStack);
 			player.getInventory().setItemInMainHand(item.createItem());
-			sender.sendMessage("fixed");
+			sender.sendMessage(plugin.getMessage("item-fixitem-done"));
 		}
 
 		return true;

@@ -1,0 +1,14 @@
+no-permission: "&4You dont have access to this command"
+console-cant-execute: "Console cant execute this command."
+target-bypass: "&4That player bypasses that action"
+player-not-found: "&cCould not find that player."
+hold-item: "&cYou need to be holding an item."
+hold-custom-item: "&cYou need to be holding an custom item."
+custom-item-not-found: "&cNot a valid custom item."
+
+reload-start: "&6Reloading all files!"
+reload-finish: "&6Reloaded all files!"
+
+item-list-open: "&6Opening items list."
+item-give-success: "&6Successfully gave {sender} custom item."
+item-fixitem-done: "&6Your item should be fixed!"

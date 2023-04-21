@@ -1,5 +1,7 @@
 package me.alvsch.alvschitems.api.ability;
 
+import lombok.Getter;
+import lombok.Setter;
 import me.alvsch.alvschitems.AlvschItems;
 import me.alvsch.alvschitems.api.event.AbilityUseEvent;
 import me.alvsch.alvschitems.utils.Utils;
@@ -7,18 +9,27 @@ import me.alvsch.alvschitems.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
 public abstract class Ability {
 
+    @Getter
     private final String id;
+    @Getter
     private final String name;
+    @Getter
     private final List<String> description;
+    @Getter
     private final double cooldown;
+    @Getter
     private final AbilityType abilityType;
+
 
     private String prefix1 = "";
     private String prefix2 = "";
+    @Getter
     private boolean showCooldown = true;
 
+    @Getter
     private boolean overwrite = false;
 
     public Ability(String id, String name, List<String> description, double cooldown, AbilityType abilityType) {
@@ -50,53 +61,5 @@ public abstract class Ability {
     }
 
     public abstract void onAbilityUse(AbilityUseEvent event);
-
-    //region Getters Setters
-
-    public final String getId() {
-        return id;
-    }
-
-    public final String getName() {
-        return name;
-    }
-
-    public final List<String> getDescription() {
-        return description;
-    }
-
-    public final double getCooldown() {
-        return cooldown;
-    }
-
-    public final AbilityType getType() {
-        return abilityType;
-    }
-
-    public final void setPrefix1(String prefix1) {
-        this.prefix1 = prefix1;
-    }
-
-    public final void setPrefix2(String prefix2) {
-        this.prefix2 = prefix2;
-    }
-
-    public final boolean displayCooldown() {
-        return showCooldown;
-    }
-
-    public final void setShowCooldown(boolean showCooldown) {
-        this.showCooldown = showCooldown;
-    }
-
-    public final void setOverwrite(boolean bool) {
-        this.overwrite = bool;
-    }
-
-    public final boolean isOverwrite() {
-        return overwrite;
-    }
-
-    //endregion
 
 }
